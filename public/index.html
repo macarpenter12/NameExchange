@@ -12,9 +12,9 @@
         <h1>Name Exchange</h1>
     </header>
 
-    <main class='site-content'>
+    <main class='container'>
         <div id='app'>
-            <div class='miniDisplay' v-if='family.name.length === 0'>
+            <div class='miniDisplay' v-if='family.name.length === 0' id='initFamily'>
                 <div class='miniHeader'>
                     <h2>Enter your family name and click Add to create to create your family.</h2>
                 </div>
@@ -22,35 +22,41 @@
                 <p><button @click='addFamily'>Add my family</button></p>
                 <p><button @click='findFamily'>Find my existing family</button></p>
             </div>
-            <div class='miniDisplay' v-if='family.name.length > 0'>
-                <div class='miniHeader'>
-                    <h2>Welcome, {{ family.name }} family!</h2>
-                </div>
-                <div class='row'>
-                    <div class='col'>
-                        <h3>Members:</h3>
-                        <p><input v-model='memberName'></p>
-                        <p><button @click='addMember'>Add member</button></p>
-                        <ul>
-                            <li v-for='member in family.members'>{{ member.name }}</li>
-                        </ul>
-                    </div>
 
-                    <div class='col'>
-                        <h3>Exceptions:</h3>
-                        <p>
-                            <select v-model='drawExceptionGiver'>
+            <div v-if='family.name.length > 0'>
+                <h2>Welcome, {{ family.name }} family!</h2>
+                <div class='row'>
+                    <div class='col-lg'>
+                        <div class='miniDisplay' id='familyMembers'>
+                            <h3>Members:</h3>
+                            <p><input v-model='memberName'></p>
+                            <p><button @click='addMember'>Add member</button></p>
+                            <ul>
+                                <li v-for='member in family.members'>{{ member.name }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class='col-lg'>
+                        <div class='miniDisplay' id='familyExceptions'>
+                            <h3>Exceptions:</h3>
+                            <p>
+                                <select v-model='drawExceptionGiver'>
                                 <option v-for='member in family.members'>{{ member.name }}</option>
                             </select> cannot draw
-                            <select v-model='drawExceptionRecipient'>
+                                <select v-model='drawExceptionRecipient'>
                                 <option v-for='member in family.members'>{{ member.name }}</option>
                             </select>
-                        </p>
-                        <button @click='addDrawException'>Add exception</button>
-                        <ul>
-                            <li v-for='exception in family.exceptions'>{{ exception.giver }} cannot draw {{ exception.recipient }}</li>
-                        </ul>
+                            </p>
+                            <p><button @click='addDrawException'>Add exception</button></p>
+                            <ul>
+                                <li v-for='exception in family.exceptions'>{{ exception.giver }} cannot draw {{ exception.recipient }}</li>
+                            </ul>
+                        </div>
                     </div>
+                </div>
+
+                <div class='miniDisplay' id='drawNames'>
+                    <!-- TODO: Display drawn names and offer to draw new names -->
                 </div>
             </div>
         </div>
