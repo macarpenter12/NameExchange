@@ -1,0 +1,92 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    background: #fff;
+    padding: 0px;
+    margin: 0px;
+}
+
+h2 {
+    margin: 8px;
+}
+
+p {
+    margin: 16px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.row {
+    margin-bottom: 8px;
+}
+
+
+
+/* Header */
+
+header {
+    display: flex;
+    padding: 20px 100px 0px 100px;
+    background-color: #232f3e;
+    color: #ffffff;
+}
+
+.miniHeader {
+    padding: 8px;
+    margin-bottom: 20px;
+    background-color: #ff6500;
+    color: #ffffff;
+}
+
+.title {
+    margin-top: 10px;
+}
+
+.title h1,
+.title h2 {
+    margin: 0px;
+}
+
+.title h1 {
+    border-top: 1px solid #000;
+}
+
+
+
+/* Content */
+
+.site {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.site-content {
+    padding: 20px 100px 0px 100px;
+    flex: 1;
+}
+
+.column-content {
+    margin: 20px 50px 70px 100px;
+    flex: 1;
+}
+
+.content {
+    margin: 20px 50px 70px 50px;
+    display: flex;
+}
+
+.miniDisplay {
+        text-align: center;
+    margin: 20px 0px 20px 0px;
+    padding: 20px 20px 20px 20px;
+    border: solid;
+    border-radius: 16px;
+    border-width: thin;
+}
+
+.familyMembers {
+    margin: 20px 0px 20px 40px;
+}
