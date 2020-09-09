@@ -33,13 +33,6 @@ header {
     color: #ffffff;
 }
 
-.miniHeader {
-    padding: 8px;
-    margin-bottom: 20px;
-    background-color: #ff6500;
-    color: #ffffff;
-}
-
 .title {
     margin-top: 10px;
 }
@@ -79,12 +72,19 @@ header {
 }
 
 .miniDisplay {
-        text-align: center;
+    text-align: center;
     margin: 20px 0px 20px 0px;
     padding: 20px 20px 20px 20px;
     border: solid;
     border-radius: 16px;
     border-width: thin;
+}
+
+.miniHeader {
+    padding: 8px;
+    margin-bottom: 20px;
+    background-color: #ff6500;
+    color: #ffffff;
 }
 
 .familyMembers {

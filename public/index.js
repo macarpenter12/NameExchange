@@ -4,73 +4,64 @@
 var App = new Vue({
     el: '#app',
     data: {
+        familyName: '',
         memberName: '',
         family: {
             name: '',
-            members: []
-        },
-        familyNameToFind: '',
-        familyToFind: {
-            name: '',
-            members: []
+            members: [],
+            exceptions: []
         },
         drawExceptionGiver: '',
-        drawExceptionRecipient: '',
-        drawExceptions: []
+        drawExceptionRecipient: ''
     },
     methods: {
-        addMember() {
-            for (let i = 0; i < this.family.members.length; i++) {
-                if (this.family.members[i].name === this.memberName) {
-                    alert('That name already exists in this family. Please use a nickname if necessary.');
-                    return;
-                }
-            }
-            this.family.members.push({ name: this.memberName });
-            this.memberName = '';
+        async addMember() {
+            axios.post(`/family/${this.familyName}/member`, {
+                    name: this.memberName
+                })
+                .then(res => {
+                    console.log('response:', res.data);
+                    this.family = res.data;
+                    this.memberName = '';
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
         },
 
-        addDrawException() {
-            this.drawExceptions[this.drawExceptionGiver].push(this.drawExceptionRecipient);
+        async addDrawException() {
+            axios.post(`/family/${this.familyName}/exception`, {
+                    giver: this.drawExceptionGiver,
+                    recipient: this.drawExceptionRecipient
+                })
+                .then(res => {
+                    console.log('response:', res.data);
+                    this.family = res.data;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         },
 
         async addFamily() {
-            // Assign unique names
-            let givers = this.family.members.slice();
-            let recipients = this.family.members.slice();
-
-            for (let i = 0; i < givers.length; i++) {
-                // Choose random recipient
-                let rand = Math.floor(Math.random() * recipients.length);
-                // Don't draw yourself
-                while (recipients[rand].name === givers[i].name) {
-                    rand = Math.floor(Math.random() * recipients.length);
-                }
-                this.family.members[i].assignment = recipients[rand].name;
-                recipients.splice(rand, 1);
-            }
-
-            console.log('family after assignment:', this.family);
-
-            axios.post('/family', this.family)
+            axios.post('/family', {
+                    name: this.familyName
+                })
                 .then(res => {
                     console.log('response:', res.data);
-                    // reset the family
-                    this.family = {
-                        name: '',
-                        members: []
-                    };
+                    this.family = res.data;
                 })
-                .catch(function(err) {
+                .catch(err => {
                     console.log(err);
                 });
         },
 
         async findFamily() {
-            axios.get('/family/' + this.familyNameToFind)
+            axios.get('/family/' + this.familyName)
                 .then(res => {
                     console.log('response:', res.data);
-                    this.familyToFind = res.data;
+                    this.family = res.data;
                 })
                 .catch(function(err) {
                     console.log(err);

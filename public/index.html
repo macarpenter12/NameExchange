@@ -13,53 +13,43 @@
     </header>
 
     <main class='site-content'>
-        <h2>Add members to your family and click Submit to draw names, or find your existing family.</h2>
         <div id='app'>
-            <div class='row'>
-                <div class='col'>
-                    <div class='miniDisplay' id='familyInput'>
-                        <h3 class='miniHeader'>Add Your Family</h3>
-                        <h3>Family name:</h3>
-                        <p><input v-model='family.name'></p>
-                        <h3>Member name:</h3>
+            <div class='miniDisplay' v-if='family.name.length === 0'>
+                <div class='miniHeader'>
+                    <h2>Enter your family name and click Add to create to create your family.</h2>
+                </div>
+                <p><input v-model='familyName'></p>
+                <p><button @click='addFamily'>Add my family</button></p>
+                <p><button @click='findFamily'>Find my existing family</button></p>
+            </div>
+            <div class='miniDisplay' v-if='family.name.length > 0'>
+                <div class='miniHeader'>
+                    <h2>Welcome, {{ family.name }} family!</h2>
+                </div>
+                <div class='row'>
+                    <div class='col'>
+                        <h3>Members:</h3>
                         <p><input v-model='memberName'></p>
-                        <button @click='addMember'>Add member</button>
-                        <div class='familyMembers'>
-                            <ul>
-                                <li v-for='member in family.members'>
-                                    {{ member.name }}
-                                </li>
-                            </ul>
-                        </div>
-                        <button @click='addFamily'>Submit</button>
+                        <p><button @click='addMember'>Add member</button></p>
+                        <ul>
+                            <li v-for='member in family.members'>{{ member.name }}</li>
+                        </ul>
                     </div>
-                </div>
-                
-                <div class='col'>
-                    <div class='miniDisplay' id='drawExceptions'>
-                        <h3 class='miniHeader'>
-                            Exceptions
-                        </h3>
-                        <p><input></p>
-                        <h3>cannot draw</h3>
-                        <p><input></p>
-                        <button @click='addDrawException'>Add Exception</button>
-                    </div>
-                </div>
-                
-                <div class='col'>
-                    <div class='miniDisplay' id='familyOutput'>
-                        <h3 class='miniHeader'>Find Your Existing Family</h3>
-                        <h3>Family name:</h3>
-                        <p><input v-model='familyNameToFind'></p>
-                        <button @click='findFamily'>Find My Family</button>
-                        <div class='familyMembers'>
-                            <ul>
-                                <li v-for='member in familyToFind.members'>
-                                    <b>{{ member.name }}</b> drew <b>{{ member.assignment }}</b>
-                                </li>
-                            </ul>
-                        </div>
+
+                    <div class='col'>
+                        <h3>Exceptions:</h3>
+                        <p>
+                            <select v-model='drawExceptionGiver'>
+                                <option v-for='member in family.members'>{{ member.name }}</option>
+                            </select> cannot draw
+                            <select v-model='drawExceptionRecipient'>
+                                <option v-for='member in family.members'>{{ member.name }}</option>
+                            </select>
+                        </p>
+                        <button @click='addDrawException'>Add exception</button>
+                        <ul>
+                            <li v-for='exception in family.exceptions'>{{ exception.giver }} cannot draw {{ exception.recipient }}</li>
+                        </ul>
                     </div>
                 </div>
             </div>
