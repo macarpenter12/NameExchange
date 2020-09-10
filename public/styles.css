@@ -16,6 +16,7 @@ p {
 
 ul {
     list-style-type: none;
+    padding-left: 0;
 }
 
 .row {
@@ -30,13 +31,6 @@ header {
     display: flex;
     padding: 20px 100px 0px 100px;
     background-color: #232f3e;
-    color: #ffffff;
-}
-
-.miniHeader {
-    padding: 8px;
-    margin-bottom: 20px;
-    background-color: #ff6500;
     color: #ffffff;
 }
 
@@ -64,29 +58,29 @@ header {
 }
 
 .site-content {
-    padding: 20px 100px 0px 100px;
-    flex: 1;
-}
-
-.column-content {
-    margin: 20px 50px 70px 100px;
-    flex: 1;
-}
-
-.content {
-    margin: 20px 50px 70px 50px;
-    display: flex;
+    margin: auto;
+    padding: 50px;
+    min-width: 600px;
+    max-width: 50%;
 }
 
 .miniDisplay {
-        text-align: center;
-    margin: 20px 0px 20px 0px;
+    text-align: center;
+    margin: auto;
+    margin-top: 40px;
     padding: 20px 20px 20px 20px;
     border: solid;
     border-radius: 16px;
     border-width: thin;
 }
 
-.familyMembers {
-    margin: 20px 0px 20px 40px;
+.miniHeader {
+    padding: 8px;
+    margin-bottom: 20px;
+    background-color: #ff6500;
+    color: #ffffff;
+}
+
+.container {
+    text-align: center;
 }
