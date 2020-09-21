@@ -51,6 +51,12 @@ app.post('/family', async(req, res) => {
         name: req.body.name
     });
     try {
+        let queryFamily = Family.findOne(family);
+        if (typeof queryFamily !== 'undefined') {
+            res.status(400).send('That family name already exists. Please use a nickname if necessary.');
+            return;
+        }
+
         await family.save();
         res.send(family);
     }

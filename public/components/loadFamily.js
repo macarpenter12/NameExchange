@@ -12,6 +12,9 @@ const loadFamily = {
             }
         };
     },
+    props: [
+        'changeComponent'
+    ],
     methods: {
         async addFamily() {
             try {
@@ -19,8 +22,8 @@ const loadFamily = {
                     name: this.familyName
                 });
                 console.log('response:', res.data);
-                this.family = res.data;
-                this.$emit('submitFamily', this.familyName, this.family);
+                this.$store.commit('setFamily', { family: res.data });
+                this.$emit('familyLoaded', { view: 'familyHome' });
             }
             catch (err) {
                 console.log('error:', err);
@@ -31,8 +34,13 @@ const loadFamily = {
             try {
                 let res = await axios.get('/family/' + this.familyName);
                 console.log('response:', res.data);
-                this.family = res.data;
-                this.$emit('submitFamily', this.familyName, this.family);
+
+                if (typeof res.data.name !== 'undefined') {
+                    this.$store.commit('setFamily', { family: res.data });
+                    this.$emit('familyLoaded', { view: 'familyHome' });
+                } else {
+                    alert(`Unable to find the ${this.familyName} family.`);
+                }
             }
             catch (err) {
                 console.log('error:', err);

@@ -2,7 +2,7 @@
 
 export default new Vuex.Store({
     state: {
-        familyName: '',
+        currentView: 'loadFamily',
         family: {
             name: '',
             members: [],
@@ -10,6 +10,9 @@ export default new Vuex.Store({
         }
     },
     mutations: {
+        changeView (state, payload) {
+            state.currentView = payload.view;
+        },
         setFamily (state, payload) {
             state.family = payload.family;
         }
