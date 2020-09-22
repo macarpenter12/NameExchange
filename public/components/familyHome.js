@@ -1,5 +1,3 @@
-/* global axios */
-
 const familyHome = {
     name: 'familyHome',
     data: function() {
@@ -10,13 +8,10 @@ const familyHome = {
             drawExceptionRecipient: ''
         };
     },
-    props: [
-        'familyName'
-    ],
     methods: {
         async addMember() {
             try {
-                let res = await axios.post(`/family/${this.familyName}/member`, {
+                let res = await axios.post(`/family/${this.family.name}/member`, {
                     name: this.memberName
                 });
                 console.log('response:', res.data);
@@ -29,7 +24,7 @@ const familyHome = {
 
         async addDrawException() {
             try {
-                let res = axios.post(`/family/${this.familyName}/exception`, {
+                let res = await axios.post(`/family/${this.family.name}/exception`, {
                     giver: this.drawExceptionGiver,
                     recipient: this.drawExceptionRecipient
                 });

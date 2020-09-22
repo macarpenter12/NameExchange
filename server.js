@@ -47,15 +47,12 @@ app.get('/family/:name', async(req, res) => {
 });
 
 app.post('/family', async(req, res) => {
-    const family = new Family({
-        name: req.body.name
-    });
     try {
-        let queryFamily = Family.findOne(family);
-        if (typeof queryFamily !== 'undefined') {
-            res.status(400).send('That family name already exists. Please use a nickname if necessary.');
-            return;
-        }
+        const family = new Family({
+            name: req.body.name,
+            members: [],
+            exceptions: []
+        });
 
         await family.save();
         res.send(family);
@@ -101,7 +98,7 @@ app.post('/family/:name/exception', async(req, res) => {
     // }
     
     family.exceptions.push(drawException);
-    
+
     try {
         let familyQuery = { name: family.name };
         await Family.updateOne(familyQuery, family);
@@ -110,6 +107,8 @@ app.post('/family/:name/exception', async(req, res) => {
     catch (err) {
         throw err;
     }
+
+    // Send the family away for processing
 });
 
 

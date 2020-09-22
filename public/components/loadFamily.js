@@ -1,20 +1,10 @@
-/* global axios */
-
 const loadFamily = {
     name: 'loadFamily',
     data: function() {
         return {
-            familyName: '',
-            family: {
-                name: '',
-                members: [],
-                exceptions: []
-            }
+            familyName: ''
         };
     },
-    props: [
-        'changeComponent'
-    ],
     methods: {
         async addFamily() {
             try {
@@ -49,9 +39,7 @@ const loadFamily = {
     },
     template: `
         <div>
-            <div class='miniHeader'>
-                <h2>Enter your family name and click Add to create your family.</h2>
-            </div>
+            <h2>Enter your family name.</h2>
             <p><input v-model='familyName'></p>
             <p><button @click='addFamily'>Add my family</button></p>
             <p><button @click='findFamily'>Find my existing family</button></p>

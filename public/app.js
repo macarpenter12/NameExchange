@@ -1,4 +1,3 @@
-/*global Vue*/
 import Store from './store.js'
 import loadFamily from './components/loadFamily.js';
 import familyHome from './components/familyHome.js';
@@ -12,27 +11,19 @@ var App = new Vue({
     },
     store: Store,
     data: {
-        currentView: 'loadFamily',
-        familyName: '',
-        family: {}
+        currentView: 'loadFamily'
     },
     methods: {
         changeComponent(payload) {
             this.currentView = payload.view;
         }
     },
-    created () {
-        // this.currentView = this.$store.state.currentView;
-        this.family = this.$store.state.family;
-        this.familyName = this.family.name;
-    },
     template: `
-        <div id='app'>
-            <transition name='fade'>
+        <div>
+            <transition name='component-fade' mode='out-in'>
                 <component
                     :is='currentView'
-                    @familyLoaded='changeComponent' 
-                </component>
+                    @familyLoaded='changeComponent' />
             </transition>
         </div>
     `
