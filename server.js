@@ -1,12 +1,14 @@
+const PORT_NUMBER = 3002;
+
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const app = express.Router();
+const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-app.use(express.static(__dirname + 'public'));
+app.use(express.static('public'));
 
 const DB_ADDRESS = 'mongodb://localhost:27017/nameExchange';
 const mongoose = require('mongoose');
@@ -106,6 +108,11 @@ app.post('/family/:name/exception', async(req, res) => {
 
 
 
+app.listen(PORT_NUMBER, function() {
+    console.log('Listening on port ' + PORT_NUMBER + '!');
+});
+
+
 
 const getFamilyByName = async(name) => {
     try {
@@ -116,5 +123,3 @@ const getFamilyByName = async(name) => {
         throw err;
     }
 };
-
-module.exports = app;
