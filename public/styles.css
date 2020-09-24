@@ -74,13 +74,25 @@ header {
     border-width: thin;
 }
 
-.miniHeader {
-    padding: 8px;
-    margin-bottom: 20px;
-    background-color: #ff6500;
-    color: #ffffff;
-}
-
 .container {
     text-align: center;
+    margin-top: 3em;
+}
+
+
+
+/* Transition */
+
+.component-fade-enter-active, .component-fade-leave-active {
+    transition: all .5s ease;
+}
+
+.component-fade-enter {
+    transform: translateY(-30px);
+    opacity: 0;
+}
+
+.component-fade-leave-to {
+    transform: translateY(30px);
+    opacity: 0;
 }
