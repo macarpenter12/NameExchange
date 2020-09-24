@@ -2,11 +2,15 @@ const familyHome = {
     name: 'familyHome',
     data: function() {
         return {
-            family: this.$store.state.family,
+            family: {},
             memberName: '',
             drawExceptionGiver: '',
-            drawExceptionRecipient: ''
+            drawExceptionRecipient: '',
+	    showDrawings: false
         };
+    },
+    created() {
+	this.family = this.$store.state.family;
     },
     methods: {
         async addMember() {
@@ -33,7 +37,22 @@ const familyHome = {
             } catch(err) {
                 console.log(err);
             }
-        }
+        },
+
+        drawNames() {
+	    let namesDrawnIndexes = [];
+            for (let i = 0; i < this.family.members.length; i++) {
+		// Draw random names/indexes.
+		// Make sure not to draw him/herself or someone who has already been drawn.
+                let rand = Math.floor(Math.random() * this.family.members.length);
+		while (namesDrawnIndexes.includes(rand) || rand === i) {
+		    rand = Math.floor(Math.random() * this.family.members.length);
+		}
+		namesDrawnIndexes.push(rand);
+		this.family.members[i].assignment = this.family.members[rand].name;
+            };
+	    this.showDrawings = true;
+	}
     },
     template: `
         <div>
@@ -51,7 +70,7 @@ const familyHome = {
                 </div>
                 <div class='col-lg'>
                     <div class='miniDisplay' id='familyExceptions'>
-                        <h3>Exceptions:</h3>
+                        <h3>Exceptions (beta):</h3>
                         <p>
                             <select v-model='drawExceptionGiver'>
                             <option v-for='member in family.members'>{{ member.name }}</option>
@@ -68,8 +87,13 @@ const familyHome = {
                 </div>
             </div>
     
-            <div class='miniDisplay' id='drawNames'>
+            <div class='miniDisplay' id='nameDrawings'>
+		<h3>Name Drawings: </h3>
                 <!-- TODO: Display drawn names and offer to draw new names -->
+		<p><button v-if='showDrawings === false' @click='drawNames'>Draw Names!</button></p>
+		<ul>
+		    <li v-if='showDrawings === true' v-for='member in family.members'>{{ member.name }} drew {{ member.assignment }}</li>
+		</ul>
             </div>
         </div>
     `
