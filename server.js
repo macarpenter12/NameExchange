@@ -2,11 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express.Router();
+app.use(express.static(__dirname + 'public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-app.use(express.static(__dirname + 'public'));
 
 const DB_ADDRESS = 'mongodb://localhost:27017/nameExchange';
 const mongoose = require('mongoose');
@@ -26,6 +26,8 @@ const familySchema = new mongoose.Schema({
     }]
 });
 const Family = mongoose.model('Family', familySchema);
+
+
 
 
 
